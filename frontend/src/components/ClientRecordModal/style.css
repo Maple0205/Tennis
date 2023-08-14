@@ -1,0 +1,8 @@
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgb(2, 162, 236); /* 链接颜色 */
+  text-decoration: none; /* 添加下划线 */
+  cursor: pointer; /* 显示手形指针 */
+}

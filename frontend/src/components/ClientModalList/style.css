@@ -1,0 +1,8 @@
+/* Add this CSS in your component's style file or as a CSS module */
+.selected-row {
+  background-color: #e6f7ff; /* Change the background color as needed */
+}
+/* Add this CSS in your component's style file or as a CSS module */
+.table-row {
+  cursor: pointer;
+}
