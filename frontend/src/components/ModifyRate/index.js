@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Modal, Form, InputNumber, message, Tooltip } from 'antd';
+import { Modal, Form, InputNumber, message, Tooltip, Button } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import baseUrl from '../../config';
 const ModifyRate = (props) => {
   const [open, setOpen] = useState(false);
   const token = sessionStorage.getItem('token');
   const [form] = useForm();
-
+  const [isLoading, setIsLoading] = useState(false);
   const modify_rate = async (values) => {
+    setIsLoading(true);
     console.log(props.record);
     const res = await fetch(baseUrl+"class_type/" + props.record.id, {
       method: "PUT",
@@ -26,12 +27,14 @@ const ModifyRate = (props) => {
         message.success("Modify rate successfully!");
         setOpen(false);
         props.getClassType();
+        form.resetFields();
       }else{
         message.error(data.msg);
       }
     } else {
         message.error('Wrong connection!');
     }
+    setIsLoading(false);
   }
 
   const handleOk = () => {
@@ -54,11 +57,21 @@ const ModifyRate = (props) => {
       <Modal
         title="Modify Rate"
         open={open}
-        onOk={() => handleOk()}
-        onCancel={() => setOpen(false)}
         width={300}
         destroyOnClose={true}
-        okText='Submit'
+        footer={[
+          <Button key="cancel" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={isLoading}
+            onClick={handleOk}
+          >
+            Submit
+          </Button>
+        ]}
       >
         <Form
           form={form}

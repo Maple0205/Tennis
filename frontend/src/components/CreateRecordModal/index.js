@@ -11,6 +11,7 @@ import {
   message,
   Select,
   Tooltip,
+  Spin,
 } from 'antd';
 import baseUrl from '../../config';
 const { Option } = Select;
@@ -24,7 +25,10 @@ const CreateRecordModal  = (props) => {
   const [rate, setRate] = useState(null);
   const [hours, setHours] = useState(null);
   const [flag, setFlag] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const get_class_type = async () => {
+    setIsLoading(true);
     const res = await fetch(baseUrl+'class_type', {
       method: 'GET',
       headers: {
@@ -41,6 +45,7 @@ const CreateRecordModal  = (props) => {
         setTypes(data.data.item);
       }
     }
+    setIsLoading(false);
   };
 
   const handleChangeType = (id,types) => {
@@ -130,8 +135,9 @@ const CreateRecordModal  = (props) => {
   }
 
   const post_record = async(values)=>{
+    setIsLoading2(true);
     console.log(values);
-    const res = await fetch('http://localhost:5005/api/v1/record',{
+    const res = await fetch(baseUrl+'record',{
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -163,6 +169,7 @@ const CreateRecordModal  = (props) => {
         form.resetFields();
       }
     }
+    setIsLoading2(false);
   }
   return (
     <>
@@ -171,7 +178,21 @@ const CreateRecordModal  = (props) => {
         Add
       </Button>
     </Tooltip>
-      <Modal title="Add New Record" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={700} okText='Add' destroyOnClose={true}>
+      <Modal title="Add New Record" open={isModalOpen} width={700} destroyOnClose={true} 
+      footer={[
+        <Button key="cancel" onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button
+          key="submit"
+          type="primary"
+          loading={isLoading2}
+          onClick={handleOk}
+        >
+          Add
+        </Button>
+      ]}>
+        {isLoading ? <Spin tip="Loading..." style={{ textAlign: 'center', width: '100%' }}/>:
         <Form
           labelCol={{
             span: 4,
@@ -260,7 +281,7 @@ const CreateRecordModal  = (props) => {
           </Form.Item>
           {render_fee(flag)}
           </>}
-        </Form>
+        </Form>}
       </Modal>
     </>
   );

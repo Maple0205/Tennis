@@ -4,13 +4,16 @@ import RecordsTable from '../RecordsTable'
 import Nodata from '../Nodata'
 import CreateRecordModal from '../CreateRecordModal'
 import baseUrl from '../../config';
+import { Spin } from 'antd';
 
 export default function CheckAttendance() {
   const [records, setRecords] = useState(null);
   const [client, setClient] = useState(null);
   const [clientName, setClientName] = useState(null);
   const token = sessionStorage.getItem('token');
+  const [isLoading, setIsLoading] = useState(false);
   const get_records = async(id)=>{
+    setIsLoading(true);
     console.log(id);
     const res = await fetch(baseUrl+'records/'+id,{
       method: 'GET',
@@ -32,6 +35,7 @@ export default function CheckAttendance() {
         }
       }
     }
+    setIsLoading(false);
   }
 
   const render_records = (client,records)=>{
@@ -52,7 +56,8 @@ export default function CheckAttendance() {
       <SearchClientTool get_records={get_records} setClient={setClient} setClientName={setClientName}/>
     </div>
     <div>
-      {render_records(client,records)}
+
+      {isLoading ? <Spin size='large'/> : render_records(client,records)}
     </div>
     </>
   )

@@ -5,17 +5,20 @@ import { useNavigate } from "react-router-dom";
 import logo from '../../images/icons8-tennis-96.png'
 import './style.css'
 import baseUrl from '../../config';
-
 const apiPath = 'user/login';
 const apiUrl = `${baseUrl}${apiPath}`;
 
 const Login = () => {
   const navigate = useNavigate();
-  const onFinish = async(values) => {
-    loginBtn(values);
+  const [isLoading, setIsLoading] = React.useState(false); // 添加 isLoading 状态
+
+  const onFinish = async (values) => {
+    setIsLoading(true); // 设置 isLoading 为 true，显示加载图标
+    await loginBtn(values);
+    setIsLoading(false); // 设置 isLoading 为 false，停止加载图标
   };
+
   const loginBtn=async(values)=>{
-    console.log(apiUrl);
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -91,10 +94,14 @@ const Login = () => {
         />
       </Form.Item>
 
-
-
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" style={{width:'100%'}}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          style={{ width: '100%' }}
+          loading={isLoading} // 设置 loading 属性
+        >
           Log in
         </Button>
       </Form.Item>

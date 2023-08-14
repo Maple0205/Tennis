@@ -1,35 +1,35 @@
 import { SearchOutlined } from '@ant-design/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Table, Spin } from 'antd';
 import ClientRecordModal from '../ClientRecordModal';
 import AccountInfoModal from '../AccountInfoModal';
 import baseUrl from '../../config';
 const ClientList = () => {
   const [data, setData] = useState([]);
   const token = sessionStorage.getItem('token');
-  
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
     getClients();
   },[]);
 
-  const getClients =async()=>{
-    const res = await fetch(baseUrl+"clients", {
+  const getClients = async () => {
+    const res = await fetch(baseUrl + "clients", {
       method: "GET",
-      headers: {'Authorization': token}
-    })
+      headers: { 'Authorization': token }
+    });
     const data = await res.json();
-    if(res.status!==200){
+    if (res.status !== 200) {
       alert("Wrong connection!")
-    }else{
-      if(data.status!==200){
+    } else {
+      if (data.status !== 200) {
         alert(data.msg);
-      }else{
-        // console.log(data.data.item);
-        if(data.data.item!==null )
+      } else {
+        if (data.data.item !== null)
           setData(data.data.item.reverse());
       }
     }
+    setIsLoading(false); 
   }
   
   const renderLevel = (record) => {
@@ -194,6 +194,14 @@ const ClientList = () => {
       ),
     }
   ];
-  return <Table columns={columns} dataSource={data} rowKey="id"/>
+  return (
+    <div>
+      {isLoading ? (
+        <Spin size="large"/>
+      ) : (
+        <Table columns={columns} dataSource={data} rowKey="id" />
+      )}
+    </div>
+  );
 };
 export default ClientList;

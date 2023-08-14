@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Input, InputNumber, Form,Tooltip } from 'antd';
+import { Button, Modal, Input, InputNumber, Form,Tooltip, message } from 'antd';
 import baseUrl from '../../config';
 const layout = {
   labelCol: {
@@ -10,7 +10,6 @@ const layout = {
   },
 };
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
   types: {
@@ -23,6 +22,7 @@ const validateMessages = {
 };
 
 const CreateAccount = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -41,6 +41,7 @@ const CreateAccount = () => {
   };
 
   const create_account=async(values)=>{
+    setIsLoading(true);
     const token = sessionStorage.getItem('token');
     const res = await fetch(baseUrl+"account",{
       method: "POST",
@@ -57,13 +58,14 @@ const CreateAccount = () => {
     const data = await res.json();
     if(res.status===200){
       if(data.status!==200){
-        alert(data.msg);
+        message.error(data.msg);
       }else{
-        alert("Succeed!");
+        message.success("Succeed!");
         form.resetFields();
+        setIsLoading(false);
       }
     }else{
-      alert("Wrong connection!");
+      message.error("Wrong connection!");
     }
   }
   return (
@@ -113,9 +115,9 @@ const CreateAccount = () => {
             <InputNumber />
           </Form.Item>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            Submit
+          </Button>
         </div>
         </Form>
       </Modal>

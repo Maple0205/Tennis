@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, message, Tooltip } from 'antd';
+import { Modal, Button, message, Tooltip, Spin } from 'antd';
 import AccountInfo from '../AccountInfo';
 import ChangeAccount from '../ChangeAccount';
 import baseUrl from '../../config';
-
-const apiPath = 'account/'; // 示例 API 路径
-const apiUrl = `${baseUrl}${apiPath}`;
 
 const AccountInfoModal = (props) => {
   const [open, setOpen] = useState(false);
   const token = sessionStorage.getItem('token');
   const [data, setData] = useState(null);
   const [account, setAccount] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+
   useEffect(() => {
     getAccountInfo(props.text);
   }, []);
 
   const getAccountInfo = async (aid) => {
-    console.log(aid);
-    const res = await fetch(apiUrl + aid, {
+    setIsLoading2(true);
+    const res = await fetch(baseUrl+ 'account/' + aid, {
       method: "GET",
       headers: {
         'Authorization': token
@@ -32,6 +32,7 @@ const AccountInfoModal = (props) => {
     } else {
       alert("Wrong connection!");
     }
+    setIsLoading2(false);
   }
 
   const changeAccount = async (values, aid) => {
@@ -42,9 +43,8 @@ const AccountInfoModal = (props) => {
       message.error("Please select another account!");
       return;
     }
-    console.log(values);
-    console.log(aid);
-    const res = await fetch("http://localhost:5005/api/v1/client/" + values.id, {
+    setIsLoading(true); 
+    const res = await fetch(baseUrl+"client/" + values.id, {
       method: "PUT",
       headers: {
         'Content-type': 'application/json',
@@ -70,6 +70,7 @@ const AccountInfoModal = (props) => {
     } else {
       message.error("Wrong connection!");
     }
+    setIsLoading(false); 
   }
 
   return (
@@ -91,10 +92,11 @@ const AccountInfoModal = (props) => {
         footer={null}
         style={{ display: 'flex', flexDirection: 'column' }} // Flex layout
       >
-        <AccountInfo data={data} />
+        {isLoading2 ? <Spin size='large'/> : 
+        <AccountInfo data={data} />}
         <ChangeAccount setAccount={setAccount} />
         <div style={{ marginTop: 'auto', textAlign: 'right', marginTop:'20px' }}> {/* Move to the bottom and align right */}
-          <Button type="primary" onClick={() => changeAccount(props.record, account)}>Change Account</Button>
+          <Button type="primary" onClick={() => changeAccount(props.record, account)} loading={isLoading}>Change Account</Button>
         </div>
       </Modal>
       </div>}

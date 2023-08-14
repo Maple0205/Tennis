@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Table } from 'antd';
+import { Table, Spin } from 'antd';
 import ClassTypeModal from '../ClassTypeModal';
 import ModifyRate from '../ModifyRate';
 import baseUrl from '../../config';
@@ -23,10 +23,11 @@ const ClassType = () => {
         <ModifyRate record = {record} getClassType={getClassType}/>)
     }
   ];
-  
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const token = sessionStorage.getItem('token');
   const getClassType = async() => {
+    setIsLoading(true);
     const response = await fetch(baseUrl+'class_type', {
       method: 'GET',
       headers: {  'Authorization': token },
@@ -44,6 +45,7 @@ const ClassType = () => {
         setData(data.data.item);
       }
     }
+    setIsLoading(false);
   }
   useEffect(() => {
     getClassType();
@@ -52,7 +54,8 @@ const ClassType = () => {
   return (
     <>
     <ClassTypeModal getClassType={getClassType}/> 
-    <Table columns={columns} dataSource={data} rowKey='id'/>
+    {isLoading ? <Spin size='large'/> :
+    <Table columns={columns} dataSource={data} rowKey='id'/>}
     </>)
 }
 export default ClassType;

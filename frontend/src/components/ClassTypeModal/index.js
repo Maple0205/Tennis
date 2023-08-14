@@ -4,6 +4,8 @@ import baseUrl from '../../config';
 const ClassTypeModal  = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm(); 
+  const [loading, setLoading] = useState(false);
+
   const onFinish = (values) => {
     post_class_type(values);
   };
@@ -19,6 +21,7 @@ const ClassTypeModal  = (props) => {
   };
 
   const post_class_type = async(values)=>{
+    setLoading(true);
     const token = sessionStorage.getItem('token');
     const res = await fetch(baseUrl+'class_type',{
       method: 'POST',
@@ -44,6 +47,7 @@ const ClassTypeModal  = (props) => {
         props.getClassType();
       }
     }
+    setLoading(false);
   }
   return (
     <>
@@ -55,7 +59,25 @@ const ClassTypeModal  = (props) => {
   </Tooltip>
 
   </div>
-      <Modal title="Add New Type" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={500} okText='Submit' destroyOnClose={true}>
+      <Modal
+      title="Add New Type"
+      open={isModalOpen}
+      width={500}
+      destroyOnClose={true}
+      footer={[
+        <Button key="cancel" onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={handleOk}
+        >
+          Submit
+        </Button>
+      ]}
+    >
         <Form
           labelCol={{
             span: 4,

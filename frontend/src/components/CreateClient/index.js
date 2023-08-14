@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Select, Tooltip } from 'antd';
+import { Button, Form, Input, Select, Tooltip, message } from 'antd';
 import SearchAccountTool from '../SearchAccountTool';
 import CreateAccount from '../CreateAccount';
 import baseUrl from '../../config';
@@ -25,14 +25,16 @@ const validateMessages = {
 const CreateClient = () => {
   const [account, setAccount] = useState(null);
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const onFinish = (values) => {
     create_client(values, account);
   };
   /* eslint-enable no-template-curly-in-string */
 const create_client=async(values,account)=>{
+  setIsLoading(true);
   const token = sessionStorage.getItem('token');
   if(account===null){
-    alert("Please select an account!");
+    message.error("Please select an account!");
     return;
   }
   const res = await fetch(baseUrl+"client",{
@@ -53,15 +55,23 @@ const create_client=async(values,account)=>{
   const data = await res.json();
   if(res.status===200){
     if(data.status!==200){
-      alert(data.msg);
+      message.error(data.msg);
     }else{
-      alert("Succeed!");
+      message.success("Succeeded!");
       form.resetFields();
     }
   }else{
-    alert("Wrong connection!");
+    message.error("Wrong connection!");
   }
+  setIsLoading(false);
 }
+
+const handleAccount = (value) => {
+  console.log('value:', value);
+  setAccount(value);
+  form.setFieldsValue({ account: value });
+};
+
   return (
     <Form
     {...layout}
@@ -126,7 +136,7 @@ const create_client=async(values,account)=>{
         },
       ]}
     >
-      <SearchAccountTool setAccount={setAccount}/>
+      <SearchAccountTool setAccount={handleAccount}/>
     </Form.Item>
 
     <Form.Item  
@@ -138,13 +148,12 @@ const create_client=async(values,account)=>{
     <span style={{marginRight:'20px'}}><CreateAccount /></span>
     <span>
     <Tooltip title="Submit this form" color='#108ee9'>
-      <Button type="primary" htmlType="submit">
+      <Button type="primary" htmlType="submit" loading={isLoading}>
       Submit
     </Button>
     </Tooltip>
     </span>
     </Form.Item>
-
   </Form>
   )
 }
