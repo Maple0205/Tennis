@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   DatePicker,
   Form,
@@ -137,33 +137,47 @@ const CreateRecordModal  = (props) => {
   const post_record = async(values)=>{
     setIsLoading2(true);
     console.log(values);
+    let fee;
+    if(flag===2){
+      fee = hours * rate;
+    }else if(flag===3){
+      fee = hours * rate / 2;
+    }else{
+      fee = 0;
+    }
+    console.log(fee);
+    console.log(hours);
+    console.log(rate);
     const res = await fetch(baseUrl+'record',{
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        'accept': 'application/json',
         'Authorization': token,
       },
       body: JSON.stringify({
         account_id: values.account_id,
-        class_type: values.class_type,
+        class_type: values.class_type.toString(),
         date: values.date,
         start_time: values.start_time,
         end_time: values.end_time,
-        rate: values.rate,
+        rate: rate,
         recharge: values.recharge,
         bonus: values.bonus,
         name: values.name,
         remark: values.remark,
+        fee: fee,
+        hours: hours,
       }),
     })
     const data = await res.json();
     if(res.status!==200){
-      alert("Wrong Connection!");
+      message.error("Wrong connection!");
     }else{
       if(data.status!==200){
-        alert(data.msg);
+        message.error(data.msg);
       }else{
-        alert("Success!");
+        message.success("Succeed!");
         props.get_records(client);
         setIsModalOpen(false);
         form.resetFields();

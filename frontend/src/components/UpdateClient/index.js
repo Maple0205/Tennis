@@ -1,4 +1,4 @@
-  import React from 'react';
+  import React,{useState} from 'react';
   import { Button, Form, Input, Select,message } from 'antd';
   import baseUrl from '../../config';
   const { Option } = Select;
@@ -24,8 +24,9 @@
   };
 
   const UpdateClient = (props) => {
-  /* eslint-enable no-template-curly-in-string */
+  const [isLoading, setIsLoading] = useState(false);
   const update_client=async(values)=>{
+    setIsLoading(true);
     const token = sessionStorage.getItem('token');
     const res = await fetch(baseUrl+"client/"+props.selected.id,{
       method: "PUT",
@@ -54,6 +55,7 @@
     }else{
       message.error("Wrong connection!");
     }
+    setIsLoading(false);
   }
   const onFinish = (values) => {
     update_client(values);
@@ -103,23 +105,27 @@
       <Form.Item name={['phone']} label="Phone" initialValue={props.selected.phone}>
         <Input />
       </Form.Item>
-      <Form.Item name={['level']} label="Level" initialValue={props.selected.level}
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Select placeholder="Please select a level">
-        <Option value="1">Primary</Option>
-        <Option value="2">Middle</Option>
-        <Option value="3">Advanced</Option>
-      </Select>
+      <Form.Item
+        name={['level']}
+        label="Level"
+        initialValue={props.selected.level}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select placeholder="Please select a level">
+          <Option value={1}>Primary</Option>
+          <Option value={2}>Middle</Option>
+          <Option value={3}>Advanced</Option>
+        </Select>
       </Form.Item>
         <Button
           type="primary"
           htmlType="submit"
           style={{ alignSelf: 'flex-end', marginRight: '-120px' }}
+          loading={isLoading}
         >
           Submit
         </Button>
