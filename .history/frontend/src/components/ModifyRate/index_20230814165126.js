@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Form, InputNumber, message, Tooltip } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import baseUrl from '../../config';
 const ModifyRate = (props) => {
   const [open, setOpen] = useState(false);
   const token = sessionStorage.getItem('token');
@@ -9,7 +8,7 @@ const ModifyRate = (props) => {
 
   const modify_rate = async (values) => {
     console.log(props.record);
-    const res = await fetch(baseUrl+"class_type/" + props.record.id, {
+    const res = await fetch("http://localhost:5005/api/v1/class_type/" + props.record.id, {
       method: "PUT",
       headers: {
         'Content-type': 'application/json',

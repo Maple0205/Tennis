@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, InputNumber, Modal, message,Tooltip } from 'antd';
-import baseUrl from '../../config';
+
 const ClassTypeModal  = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm(); 
@@ -20,7 +20,7 @@ const ClassTypeModal  = (props) => {
 
   const post_class_type = async(values)=>{
     const token = sessionStorage.getItem('token');
-    const res = await fetch(baseUrl+'class_type',{
+    const res = await fetch('http://localhost:5005/api/v1/class_type',{
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Select, Tooltip } from 'antd';
 import SearchAccountTool from '../SearchAccountTool';
 import CreateAccount from '../CreateAccount';
-import baseUrl from '../../config';
+
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -35,7 +35,7 @@ const create_client=async(values,account)=>{
     alert("Please select an account!");
     return;
   }
-  const res = await fetch(baseUrl+"client",{
+  const res = await fetch("http://localhost:5005/api/v1/client",{
     method: "POST",
     headers: {
       'accept': 'application/json',

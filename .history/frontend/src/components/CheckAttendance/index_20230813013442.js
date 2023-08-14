@@ -3,8 +3,6 @@ import SearchClientTool from '../SearchClientTool'
 import RecordsTable from '../RecordsTable'
 import Nodata from '../Nodata'
 import CreateRecordModal from '../CreateRecordModal'
-import baseUrl from '../../config';
-
 export default function CheckAttendance() {
   const [records, setRecords] = useState(null);
   const [client, setClient] = useState(null);
@@ -12,7 +10,7 @@ export default function CheckAttendance() {
   const token = sessionStorage.getItem('token');
   const get_records = async(id)=>{
     console.log(id);
-    const res = await fetch(baseUrl+'records/'+id,{
+    const res = await fetch('http://localhost:5005/api/v1/records/'+id,{
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

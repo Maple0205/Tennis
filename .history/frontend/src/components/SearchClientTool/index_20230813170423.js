@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Select, Spin } from 'antd';
-import baseUrl from '../../config';
 function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState([]);
@@ -40,7 +39,7 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
 async function fetchUserList(info) {
   const token = sessionStorage.getItem('token');
   if(info!==""){
-    return fetch(baseUrl+'search_client/'+info,{
+    return fetch('http://localhost:5005/api/v1/search_client/'+info,{
       headers: {
         'Content-type': 'application/json',
         'Authorization': token,

@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Select, Spin } from 'antd';
-import baseUrl from '../../config';
 function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState([]);
@@ -40,7 +39,7 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
 async function fetchUserList(info) {
   const token = sessionStorage.getItem('token');
   if(info!==""){
-    return fetch(baseUrl+'search_client/'+info,{
+    return fetch('http://localhost:5005/api/v1/account_search/'+info,{
       headers: {
         'Content-type': 'application/json',
         'Authorization': token,
@@ -50,11 +49,9 @@ async function fetchUserList(info) {
     .then((body) => {
       console.log('response body:', body); // 添加这行
       if(body.data.item!==null){
-        return body.data.item.map((client) => ({
-          label: `${client.email} ${client.name}`,
-          key: client.id,
-          value: client.name,
-          title: client.aid,
+        return body.data.item.map((account) => ({
+          label: `${account.email}`,
+          value: account.id,
         }));
       }else{
         return null
@@ -62,27 +59,23 @@ async function fetchUserList(info) {
     });
   }
 }
-
-const SearchClientTool = (props) => {
+const SearchAccountTool = (props) => {
   const [value, setValue] = useState([]);
-  
   return (
     <DebounceSelect
       mode="single"
       value={value}
-      placeholder="Select Client"
+      placeholder="Select Account"
       fetchOptions={fetchUserList}
       onChange={(newValue) => {
         setValue(newValue);
         console.log('newValue:', newValue);
-        props.get_records(newValue.title);
-        props.setClient(newValue.title);
-        props.setClientName(newValue.value);
+        props.setAccount(newValue.value);
       }}
       style={{
-        width: '50%',
+        width: '100%',
       }}
     />
   );
 };
-export default SearchClientTool;
+export default SearchAccountTool;

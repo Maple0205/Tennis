@@ -15,7 +15,6 @@ const Login = () => {
     loginBtn(values);
   };
   const loginBtn=async(values)=>{
-    console.log(apiUrl);
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {

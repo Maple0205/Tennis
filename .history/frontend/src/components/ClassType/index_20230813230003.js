@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Table } from 'antd';
 import ClassTypeModal from '../ClassTypeModal';
 import ModifyRate from '../ModifyRate';
-import baseUrl from '../../config';
+  
 const ClassType = () => {
   const columns = [
     {
@@ -27,7 +27,7 @@ const ClassType = () => {
   const [data, setData] = useState([]);
   const token = sessionStorage.getItem('token');
   const getClassType = async() => {
-    const response = await fetch(baseUrl+'class_type', {
+    const response = await fetch('http://localhost:5005/api/v1/class_type', {
       method: 'GET',
       headers: {  'Authorization': token },
     });

@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, message, Tooltip } from 'antd';
 import AccountInfo from '../AccountInfo';
 import ChangeAccount from '../ChangeAccount';
-import baseUrl from '../../config';
-
-const apiPath = 'account/'; // 示例 API 路径
-const apiUrl = `${baseUrl}${apiPath}`;
-
 const AccountInfoModal = (props) => {
   const [open, setOpen] = useState(false);
   const token = sessionStorage.getItem('token');
@@ -18,7 +13,7 @@ const AccountInfoModal = (props) => {
 
   const getAccountInfo = async (aid) => {
     console.log(aid);
-    const res = await fetch(apiUrl + aid, {
+    const res = await fetch("http://localhost:5005/api/v1/account/" + aid, {
       method: "GET",
       headers: {
         'Authorization': token

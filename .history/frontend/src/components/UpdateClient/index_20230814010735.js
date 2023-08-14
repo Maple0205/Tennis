@@ -1,6 +1,6 @@
   import React from 'react';
   import { Button, Form, Input, Select,message } from 'antd';
-  import baseUrl from '../../config';
+
   const { Option } = Select;
   const layout = {
     labelCol: {
@@ -27,7 +27,7 @@
   /* eslint-enable no-template-curly-in-string */
   const update_client=async(values)=>{
     const token = sessionStorage.getItem('token');
-    const res = await fetch(baseUrl+"client/"+props.selected.id,{
+    const res = await fetch("http://localhost:5005/api/v1/client/"+props.selected.id,{
       method: "PUT",
       headers: {
         'accept': 'application/json',

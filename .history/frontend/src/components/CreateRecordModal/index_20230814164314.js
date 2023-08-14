@@ -12,7 +12,7 @@ import {
   Select,
   Tooltip,
 } from 'antd';
-import baseUrl from '../../config';
+
 const { Option } = Select;
 const CreateRecordModal  = (props) => {
   const componentDisabled = false;
@@ -25,7 +25,7 @@ const CreateRecordModal  = (props) => {
   const [hours, setHours] = useState(null);
   const [flag, setFlag] = useState(0);
   const get_class_type = async () => {
-    const res = await fetch(baseUrl+'class_type', {
+    const res = await fetch('http://localhost:5005/api/v1/class_type', {
       method: 'GET',
       headers: {
         'Authorization': token,

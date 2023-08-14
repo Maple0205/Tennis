@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, message, Tooltip } from 'antd';
 import AccountInfo from '../AccountInfo';
 import ChangeAccount from '../ChangeAccount';
-import baseUrl from '../../config';
+import baseUrl from './config';
 
 const apiPath = 'account/'; // 示例 API 路径
 const apiUrl = `${baseUrl}${apiPath}`;

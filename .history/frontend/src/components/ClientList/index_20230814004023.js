@@ -4,7 +4,6 @@ import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table } from 'antd';
 import ClientRecordModal from '../ClientRecordModal';
 import AccountInfoModal from '../AccountInfoModal';
-import baseUrl from '../../config';
 const ClientList = () => {
   const [data, setData] = useState([]);
   const token = sessionStorage.getItem('token');
@@ -14,7 +13,7 @@ const ClientList = () => {
   },[]);
 
   const getClients =async()=>{
-    const res = await fetch(baseUrl+"clients", {
+    const res = await fetch("http://localhost:5005/api/v1/clients", {
       method: "GET",
       headers: {'Authorization': token}
     })

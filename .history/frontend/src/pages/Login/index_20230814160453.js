@@ -4,10 +4,6 @@ import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from "react-router-dom";
 import logo from '../../images/icons8-tennis-96.png'
 import './style.css'
-import baseUrl from '../../config';
-
-const apiPath = 'user/login';
-const apiUrl = `${baseUrl}${apiPath}`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,8 +11,7 @@ const Login = () => {
     loginBtn(values);
   };
   const loginBtn=async(values)=>{
-    console.log(apiUrl);
-    const response = await fetch(apiUrl, {
+    const response = await fetch('http://localhost:5005/api/v1/user/login', {
       method: 'POST',
       headers: {
         'accept': 'application/json',

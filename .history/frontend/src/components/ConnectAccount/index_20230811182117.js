@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 import logo from '../../images/add-circle-outline.svg';
 import SearchAccountTool from '../SearchAccountTool';
-import baseUrl from '../../config';
 const ConnectAccount = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [account, setAccount] = useState('');
@@ -17,7 +16,7 @@ const ConnectAccount = (props) => {
   };
   const update_client=async(values,account)=>{
     const token = sessionStorage.getItem('token');
-    const res = await fetch(baseUrl+"client/"+values.id,{
+    const res = await fetch("http://localhost:5005/api/v1/client/"+values.id,{
       method: "PUT",
       headers: {
         'accept': 'application/json',

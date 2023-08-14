@@ -4,7 +4,6 @@ import { Input, Space } from 'antd';
 import Nodata from '../Nodata';
 import ClientModalList from '../ClientModalList';
 import UpdateClient from '../UpdateClient';
-import baseUrl from '../../config';
 const { Search } = Input;
 
 const SearchClientModal = () => {
@@ -42,7 +41,7 @@ const SearchClientModal = () => {
   const onSearch = async(value) => {
     if (value !== "") {
     const token = sessionStorage.getItem('token');
-    const response = await fetch(baseUrl+'search_client/'+value, {
+    const response = await fetch('http://127.0.0.1:5005/api/v1/search_client/'+value, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Input, InputNumber, Form,Tooltip } from 'antd';
-import baseUrl from '../../config';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -42,7 +42,7 @@ const CreateAccount = () => {
 
   const create_account=async(values)=>{
     const token = sessionStorage.getItem('token');
-    const res = await fetch(baseUrl+"account",{
+    const res = await fetch("http://localhost:5005/api/v1/account",{
       method: "POST",
       headers: {
         'accept': 'application/json',
