@@ -133,13 +133,13 @@ const RecordsTable = (props) => {
         if(text==="1"){
           return "Single";
         }else if(text==="2"){
-          return "2 people";
+          return "2 People";
         }else if(text==="3"){
-          return "3 people";
+          return "3 People";
         }else if(text==="4"){
-          return "4 people";
+          return "4 People";
         }else if (text==="5"){
-          return "5 people";
+          return "5 People";
         }else{
           return null;
         }
