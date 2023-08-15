@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"tennis/model"
 	"tennis/serializer"
 )
@@ -27,19 +26,20 @@ type ShowRecordService struct {
 type ListRecordService struct {
 }
 
-// type UpdateRecordService struct {
-// 	Date      string `json:"date"`
-// 	Name      string `json:"name"`
-// 	ClassType string `json:"class_type"`
-// 	StartTime string `json:"start_time"`
-// 	EndTime   string `json:"end_time"`
-// 	Hours     uint   `json:"hours"`
-// 	Rate      uint   `json:"rate"`
-// 	Fee       uint   `json:"fee"`
-// 	Recharge  uint   `json:"recharge"`
-// 	Bonus     uint   `json:"bonus"`
-// 	Balance   uint   `json:"balance"`
-// }
+type UpdateRecordService struct {
+	Name      string  `json:"name"`
+	Date      string  `json:"date"`
+	ClassType string  `json:"class_type"`
+	StartTime string  `json:"start_time"`
+	EndTime   string  `json:"end_time"`
+	Rate      int     `json:"rate"`
+	Recharge  int     `json:"recharge"`
+	Bonus     int     `json:"bonus"`
+	AccountID uint    `json:"account_id"`
+	Remark    string  `json:"remark"`
+	Fee       float64 `json:"fee"`
+	Hours     float64 `json:"hours"`
+}
 
 // type SearchRecordService struct {
 // 	Info     string `json:"info" form:"info"`
@@ -69,9 +69,7 @@ func (service *CreateRecordService) Create() serializer.Response {
 	}
 
 	//calculate balance
-	fmt.Println("account.Balance: ", account.Balance)
 	account.Balance = account.Balance + float64(service.Recharge) + float64(service.Bonus) - service.Fee
-	fmt.Println("account.Balance: ", account.Balance)
 	record := model.Record{
 		Date:      service.Date,
 		Name:      service.Name,
@@ -87,7 +85,6 @@ func (service *CreateRecordService) Create() serializer.Response {
 		AccountID: service.AccountID,
 		Remark:    service.Remark,
 	}
-	fmt.Println("record: ", record)
 	err1 := model.DB.Create(&record).Error
 	if err1 != nil {
 		code = 500
@@ -136,19 +133,29 @@ func (service *ListRecordService) List(uid uint) serializer.Response {
 	return serializer.BuildListResponse(serializer.BuildRecords(records), uint(count))
 }
 
-// func (service *UpdateTaskService) Update(tid string) serializer.Response {
-// 	var task model.Task
-// 	model.DB.First(&task, tid)
-// 	task.Content = service.Content
-// 	task.Title = service.Title
-// 	task.Status = service.Status
-// 	model.DB.Save(&task)
-// 	return serializer.Response{
-// 		Status: 200,
-// 		Data:   serializer.BuildTask(task),
-// 		Msg:    "Update succeed!",
-// 	}
-// }
+func (service *UpdateRecordService) Update(tid string) serializer.Response {
+	var record model.Record
+	model.DB.First(&record, tid)
+	record.Name = service.Name
+	record.Date = service.Date
+	record.ClassType = service.ClassType
+	record.StartTime = service.StartTime
+	record.EndTime = service.EndTime
+	record.Rate = service.Rate
+	record.Recharge = service.Recharge
+	record.Bonus = service.Bonus
+	record.AccountID = service.AccountID
+	record.Remark = service.Remark
+	record.Fee = service.Fee
+	record.Hours = service.Hours
+
+	model.DB.Save(&record)
+	return serializer.Response{
+		Status: 200,
+		Data:   serializer.BuildRecord(record),
+		Msg:    "Update succeed!",
+	}
+}
 
 // func (service *SearchTaskService) Search(uid uint) serializer.Response {
 // 	var tasks []model.Task

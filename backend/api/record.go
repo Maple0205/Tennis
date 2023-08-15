@@ -43,16 +43,16 @@ func ListRecord(c *gin.Context) {
 	}
 }
 
-// func UpdateTask(c *gin.Context) {
-// 	var updateTask service.UpdateTaskService
-// 	if err := c.ShouldBind(&updateTask); err == nil {
-// 		res := updateTask.Update(c.Param("id"))
-// 		c.JSON(200, res)
-// 	} else {
-// 		logging.Error(err)
-// 		c.JSON(400, err)
-// 	}
-// }
+func UpdateRecord(c *gin.Context) {
+	var updateRecord service.UpdateRecordService
+	if err := c.ShouldBind(&updateRecord); err == nil {
+		res := updateRecord.Update(c.Param("id"))
+		c.JSON(200, res)
+	} else {
+		logging.Error(err)
+		c.JSON(400, err)
+	}
+}
 
 // func SearchTask(c *gin.Context) {
 // 	var searchTask service.SearchTaskService
