@@ -112,22 +112,22 @@ func (service *CreateRecordService) Create() serializer.Response {
 	}
 }
 
-// func (service *ShowRecordService) Show(tid string) serializer.Response {
-// 	var record model.Record
-// 	code := 200
-// 	err := model.DB.First(&record, tid).Error
-// 	if err != nil {
-// 		code = 500
-// 		return serializer.Response{
-// 			Status: code,
-// 			Msg:    "Search failed!",
-// 		}
-// 	}
-// 	return serializer.Response{
-// 		Status: code,
-// 		Data:   serializer.BuildRecord(record),
-// 	}
-// }
+func (service *ShowRecordService) Show(tid string) serializer.Response {
+	var record model.Record
+	code := 200
+	err := model.DB.First(&record, tid).Error
+	if err != nil {
+		code = 500
+		return serializer.Response{
+			Status: code,
+			Msg:    "Search failed!",
+		}
+	}
+	return serializer.Response{
+		Status: code,
+		Data:   serializer.BuildRecord(record),
+	}
+}
 
 func (service *ListRecordService) List(uid uint) serializer.Response {
 	var records []model.Record

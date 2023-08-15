@@ -19,16 +19,16 @@ func CreateRecord(c *gin.Context) {
 	}
 }
 
-// func ShowRecord(c *gin.Context) {
-// 	var showRecord service.ShowRecordService
-// 	if err := c.ShouldBind(&showRecord); err == nil {
-// 		res := showRecord.Show(c.Param("id"))
-// 		c.JSON(200, res)
-// 	} else {
-// 		logging.Error(err)
-// 		c.JSON(400, err)
-// 	}
-// }
+func ShowRecord(c *gin.Context) {
+	var showRecord service.ShowRecordService
+	if err := c.ShouldBind(&showRecord); err == nil {
+		res := showRecord.Show(c.Param("id"))
+		c.JSON(200, res)
+	} else {
+		logging.Error(err)
+		c.JSON(400, err)
+	}
+}
 
 func ListRecord(c *gin.Context) {
 	var listRecord service.ListRecordService

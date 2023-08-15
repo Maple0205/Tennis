@@ -47,7 +47,7 @@ func NewRouter() *gin.Engine {
 
 			// Record
 			authed.POST("record", api.CreateRecord)
-			// authed.GET("record/:id", api.ShowRecord)
+			authed.GET("record/:id", api.ShowRecord)
 			authed.GET("records/:id", api.ListRecord)
 
 			//class_type
