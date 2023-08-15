@@ -80,18 +80,13 @@ const ClassTypeModal  = (props) => {
       ]}
     >
         <Form
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
           form={form}
           onFinish={onFinish}
           layout="horizontal"
           style={{
-            maxWidth: 600,
+            maxWidth: 300,
             marginTop: 30,
+            marginLeft: 60,
           }}
         >
           <Form.Item label="TypeName" name="type_name">
