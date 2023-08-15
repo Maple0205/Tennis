@@ -13,6 +13,7 @@ import CreateClient from '../../components/CreateClient';
 import ClientList from '../../components/ClientList';
 import CheckAttendance from '../../components/CheckAttendance';
 import ClassType from '../../components/ClassType';
+import Media from 'react-media';
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -31,7 +32,7 @@ const items = [
 ];
 const TennisLayout = () => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [selectedMenuItemKey, setSelectedMenuItemKey] = useState("1"); // 初始选中项
   const {
     token: { colorBgContainer },
@@ -60,10 +61,18 @@ const TennisLayout = () => {
         minHeight: '100vh',
       }}
     >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} selectedKeys={[selectedMenuItemKey]} mode="inline" items={items} onSelect={handleMenuSelect}/>
-      </Sider>
+      <Media query="(min-width: 501px)">
+        {(matches) => (matches ? ( 
+          <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+          <div className="demo-logo-vertical" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} selectedKeys={[selectedMenuItemKey]} mode="inline" items={items} onSelect={handleMenuSelect}/>
+        </Sider>) : (
+          <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+          <div className="demo-logo-vertical" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} selectedKeys={[selectedMenuItemKey]} mode="inline" items={items} onSelect={handleMenuSelect}/>
+        </Sider>))}
+      </Media>
+
       <Layout>
         <Header
           style={{

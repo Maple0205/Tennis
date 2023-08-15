@@ -185,15 +185,16 @@ const CreateRecordModal  = (props) => {
     }
     setIsLoading2(false);
   }
+  const matchMedia = window.matchMedia('(max-width: 500px)');
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
+    {!matchMedia.matches && <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
         <Tooltip title="Add a new record" color='#108ee9'>
           <Button type="primary" onClick={showModal}>
             Add
           </Button>
         </Tooltip>
-      </div>
+      </div>}
 
       <Modal title="Add New Record" open={isModalOpen} width={700} destroyOnClose={true} onCancel={handleCancel}
       footer={[

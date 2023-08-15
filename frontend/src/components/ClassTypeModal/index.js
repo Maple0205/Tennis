@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, InputNumber, Modal, message,Tooltip } from 'antd';
 import baseUrl from '../../config';
+import Media from 'react-media';
 const ClassTypeModal  = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm(); 
@@ -49,6 +50,9 @@ const ClassTypeModal  = (props) => {
     }
     setLoading(false);
   }
+
+  const MediaMatch = window.matchMedia('(min-width: 501px)');
+  
   return (
     <>
   <div style={{ textAlign: 'left', marginBottom: '20px' }}>
@@ -59,11 +63,11 @@ const ClassTypeModal  = (props) => {
   </Tooltip>
 
   </div>
+
       <Modal
       title="Add New Type"
       open={isModalOpen}
-      width={500}
-      destroyOnClose={true}
+      width={MediaMatch.matches ? 500 : 230}
       onCancel={handleCancel}
       footer={[
         <Button key="cancel" onClick={handleCancel}>
@@ -82,18 +86,18 @@ const ClassTypeModal  = (props) => {
         <Form
           form={form}
           onFinish={onFinish}
-          layout="horizontal"
+          layout= "horizontal"
           style={{
-            maxWidth: 300,
-            marginTop: 30,
-            marginLeft: 60,
+            maxWidth: MediaMatch.matches ? 500 : "100%",
+            marginTop: MediaMatch.matches ? 20 : 0,
+            marginLeft: MediaMatch.matches ? 0 : 20,
           }}
         >
           <Form.Item label="TypeName" name="type_name">
             <Input />
           </Form.Item>
           <Form.Item label="Rate" name="rate">
-            <InputNumber min={0}/>
+            {MediaMatch.matches ? <InputNumber min={0}/> : <InputNumber min={0} style={{width: '100%'}}/>}
           </Form.Item>
         </Form>
       </Modal>

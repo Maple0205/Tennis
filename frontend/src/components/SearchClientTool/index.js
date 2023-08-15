@@ -6,6 +6,7 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState([]);
   const fetchRef = useRef(0);
+  const MediaMatch = window.matchMedia('(min-width: 501px)');
   const debounceFetcher = useMemo(() => {
     const loadOptions = (value) => {
       fetchRef.current += 1;
@@ -32,6 +33,7 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
       notFoundContent={fetching ? <Spin size="small" /> : "No match, you need to create a new one."}
       {...props}
       options={options}
+      style={MediaMatch.matches ? { width: '50%' } : { width: '100%' }}
     />
   );
 }

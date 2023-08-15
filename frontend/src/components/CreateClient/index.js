@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Select, Tooltip, message } from 'antd';
+import { Button, Form, Input, Select, Tooltip, message, Row, Col } from 'antd';
 import SearchAccountTool from '../SearchAccountTool';
 import CreateAccount from '../CreateAccount';
 import baseUrl from '../../config';
+import Media from 'react-media';  
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -138,13 +139,9 @@ const handleAccount = (value) => {
     >
       <SearchAccountTool setAccount={handleAccount}/>
     </Form.Item>
-
-    <Form.Item  
-  wrapperCol={{
-    ...layout.wrapperCol,
-    offset: 8,
-  }}
->
+      {matchMedia("(max-width: 500px)").matches ? (    <Form.Item  
+    >
+      <div>
     <span style={{marginRight:'20px'}}><CreateAccount /></span>
     <span>
     <Tooltip title="Submit this form" color='#108ee9'>
@@ -152,8 +149,25 @@ const handleAccount = (value) => {
       Submit
     </Button>
     </Tooltip>
-    </span>
-    </Form.Item>
+    </span></div>
+    </Form.Item>):
+      (    <Form.Item  
+        wrapperCol={{
+          ...layout.wrapperCol,
+          offset: 8,
+        }}
+      >
+        <div>
+      <span style={{marginRight:'20px'}}><CreateAccount /></span>
+      <span>
+      <Tooltip title="Submit this form" color='#108ee9'>
+        <Button type="primary" htmlType="submit" loading={isLoading}>
+        Submit
+      </Button>
+      </Tooltip>
+      </span></div>
+      </Form.Item>)
+      }
   </Form>
   )
 }

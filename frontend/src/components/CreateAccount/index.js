@@ -68,6 +68,8 @@ const CreateAccount = () => {
       message.error("Wrong connection!");
     }
   }
+
+  const MediaMatch = window.matchMedia('(min-width: 501px)');
   return (
     <>
       <Tooltip title="Create a new account" color='#108ee9'>
@@ -76,16 +78,16 @@ const CreateAccount = () => {
         </Button>
       </Tooltip>
 
-      <Modal title="Create a New Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+      <Modal title="Create a New Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} width={MediaMatch.matches ? 500 : 250}>
         <Form
           {...layout}
           form={form}
-          name="nest-messages"
+          name="create-account"
           onFinish={onFinish}
           style={{
-            maxWidth: 600,
-            marginTop:'30px',
-            marginLeft:'-20px'
+            maxWidth: MediaMatch.matches ? '500' : '100%',
+            marginTop: MediaMatch.matches ? '20px' : '0',
+            marginLeft: MediaMatch.matches ? '-60px' : '20',
           }}
           validateMessages={validateMessages}
         >
@@ -99,7 +101,7 @@ const CreateAccount = () => {
               },
             ]}
           >
-            <Input style={{width:'300px'}}/>
+            {MediaMatch.matches ? <Input style={{width:'300px'}}/> : <Input style={{width:'200px'}}/>}
           </Form.Item>
           <Form.Item
             name={['balance']}

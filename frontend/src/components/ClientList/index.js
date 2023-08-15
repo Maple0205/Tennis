@@ -194,14 +194,77 @@ const ClientList = () => {
       ),
     }
   ];
+
+  const isVerticalLayout = window.innerWidth <= 500;
+
+  const tableStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  };
+
+  const rowStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    border: '1px solid #ccc',
+    marginBottom: '10px',
+  };
+
+  const cellStyle = {
+    padding: '10px',
+    textAlign: 'left',
+  };
+
+  const pageSize = 1; // 每页显示的记录数
+  const totalPages = Math.ceil(data.length / pageSize);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div>
-      {isLoading ? (
-        <Spin size="large"/>
+      {isVerticalLayout ? (
+           <div>
+           <div style={tableStyle}>
+             {data.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((record) => (
+               <div style={rowStyle} key={record.id}>
+          <div style={cellStyle}>
+            <strong>Name:</strong> {record.name}
+          </div>
+          <div style={cellStyle}>
+            <strong>Email:</strong> {record.email}
+          </div>
+          <div style={cellStyle}>
+            <strong>Level:</strong> {renderLevel(record)}
+          </div>
+          <div style={cellStyle}>
+            <strong>Phone:</strong> {record.phone}
+          </div>
+          <div style={cellStyle}>
+            <strong>Account ID:</strong> {record.aid}
+          </div>  
+          </div>
+             ))}
+           </div>
+           <div>
+             <button disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)} style={{width:"40%"}}>
+               Previous
+             </button>
+             <button disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)} style={{width:"40%"}}>
+               Next
+             </button>
+           </div>
+         </div>
       ) : (
-        <Table columns={columns} dataSource={data} rowKey="id" />
+        isLoading ? (
+          <Spin size="large"/>
+        ) : (
+          <Table columns={columns} dataSource={data} rowKey="id" />
+        )
       )}
     </div>
-  );
+  ) 
 };
 export default ClientList;

@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Table, List } from 'antd';
 import RecordUpdateModal from '../RecordUpdateModal';
 import ModifyRecordNoteModal from '../ModifyRecordNoteModal';
 const RecordsTable = (props) => {
@@ -213,6 +213,98 @@ const RecordsTable = (props) => {
         return <ModifyRecordNoteModal record={record} get_records={props.get_records} text={text}/>},
     }
   ];
-  return <Table columns={columns} dataSource={data}  rowKey="id"/>;
+
+  const isVerticalLayout = window.innerWidth <= 500;
+
+  const tableStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  };
+
+  const rowStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    border: '1px solid #ccc',
+    marginBottom: '10px',
+  };
+
+  const cellStyle = {
+    padding: '10px',
+    textAlign: 'left',
+  };
+
+  const pageSize = 1; // 每页显示的记录数
+  const totalPages = Math.ceil(data.length / pageSize);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  return (
+    <div>
+      {isVerticalLayout ? (
+           <div>
+           <div style={tableStyle}>
+             {data.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((record) => (
+               <div style={rowStyle} key={record.id}>
+         <div style={cellStyle}>
+            <strong>Date:</strong> {record.date}
+          </div>
+          <div style={cellStyle}>
+            <strong>Name:</strong> {record.name}
+          </div>
+          <div style={cellStyle}>
+            <strong>Class Type:</strong> {record.class_type}
+          </div>
+          <div style={cellStyle}>
+            <strong>Start Time:</strong> {record.start_time}
+          </div>
+          <div style={cellStyle}>
+            <strong>End Time:</strong> {record.end_time}
+          </div>
+          <div style={cellStyle}>
+            <strong>Hours:</strong> {record.hours}
+          </div>
+          <div style={cellStyle}>
+            <strong>Rate:</strong> {record.rate}
+          </div>
+          <div style={cellStyle}>
+            <strong>Fee:</strong> {record.fee}
+          </div>
+          <div style={cellStyle}>
+            <strong>Deposit:</strong> {record.recharge}
+          </div>
+          <div style={cellStyle}>
+            <strong>Complimentary:</strong> {record.bonus}
+          </div>
+          <div style={cellStyle}>
+            <strong>Balance:</strong> {record.balance}
+          </div>
+          <div style={cellStyle}>
+            <strong>Account ID:</strong> {record.account_id}
+          </div>
+          <div style={cellStyle}>
+            <strong>Note:</strong> {record.remark}
+          </div>
+               </div>
+             ))}
+           </div>
+           <div>
+             <button disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)} style={{width:"40%"}}>
+               Previous
+             </button>
+             <button disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)} style={{width:"40%"}}>
+               Next
+             </button>
+           </div>
+         </div>
+      ) : (
+        <Table columns={columns} dataSource={data} rowKey="id" pagination={false} />
+      )}
+    </div>
+  ) 
+  
 };
 export default RecordsTable;
