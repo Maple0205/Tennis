@@ -64,6 +64,7 @@ const ClassTypeModal  = (props) => {
       open={isModalOpen}
       width={500}
       destroyOnClose={true}
+      onCancel={handleCancel}
       footer={[
         <Button key="cancel" onClick={handleCancel}>
           Cancel

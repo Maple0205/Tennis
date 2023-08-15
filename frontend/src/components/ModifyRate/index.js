@@ -44,7 +44,9 @@ const ModifyRate = (props) => {
   const onFinish = (values) => {
     modify_rate(values);
   };
-
+  const handleCancel = () => {
+    setOpen(false);
+  };
   return (
     <>
     {props.text!==0 &&
@@ -59,8 +61,9 @@ const ModifyRate = (props) => {
         open={open}
         width={300}
         destroyOnClose={true}
+        onCancel={handleCancel}
         footer={[
-          <Button key="cancel" onClick={() => setOpen(false)}>
+          <Button key="cancel" onClick={() => handleCancel}>
             Cancel
           </Button>,
           <Button

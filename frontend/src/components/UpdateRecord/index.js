@@ -89,6 +89,11 @@ const onFinish = (values) => {
     <Form.Item
       name={['date']}
       label="Date"
+      rules={[
+        {
+          required: true,
+        },
+      ]}
     >
       <DatePicker/>
     </Form.Item>

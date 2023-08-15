@@ -187,12 +187,15 @@ const CreateRecordModal  = (props) => {
   }
   return (
     <>
-    <Tooltip title="Add a new record" color='#108ee9'>
-      <Button type="primary" onClick={showModal}  style={{marginBottom:'20px'}}>
-        Add
-      </Button>
-    </Tooltip>
-      <Modal title="Add New Record" open={isModalOpen} width={700} destroyOnClose={true} 
+      <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
+        <Tooltip title="Add a new record" color='#108ee9'>
+          <Button type="primary" onClick={showModal}>
+            Add
+          </Button>
+        </Tooltip>
+      </div>
+
+      <Modal title="Add New Record" open={isModalOpen} width={700} destroyOnClose={true} onCancel={handleCancel}
       footer={[
         <Button key="cancel" onClick={handleCancel}>
           Cancel
@@ -221,6 +224,7 @@ const CreateRecordModal  = (props) => {
           style={{
             width: '100%',
             marginTop: 30,
+            marginLeft: 60,
           }}
           onValuesChange={(changedValues, allValues) => {
             if ("record_type" in changedValues) {
