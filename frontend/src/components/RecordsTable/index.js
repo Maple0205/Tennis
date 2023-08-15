@@ -117,6 +117,8 @@ const RecordsTable = (props) => {
       dataIndex: 'date',
       key: 'date',
       ...getColumnSearchProps('date'),
+      sorter: (a, b) => new Date(a.date) - new Date(b.date), // Ensure the date values can be compared
+      sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Name',

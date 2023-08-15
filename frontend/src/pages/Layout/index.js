@@ -26,7 +26,7 @@ const items = [
   getItem('Analysis', '1', <PieChartOutlined />),
   getItem('Class', '2', <DesktopOutlined />, [getItem('Check Attendance', '21'), getItem('Class Type', '22')]),
   getItem('Client', '3', <UserOutlined />, [getItem('New Client', '31'), getItem('Client List', '32')]),
-  getItem('Data', '4', <FileOutlined />),
+  getItem('Booking', '4', <FileOutlined />),
   getItem('Log Out', '5', <LogoutOutlined />),
 ];
 const TennisLayout = () => {
