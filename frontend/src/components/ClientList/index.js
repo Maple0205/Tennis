@@ -2,7 +2,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table, Spin } from 'antd';
-import ClientRecordModal from '../ClientRecordModal';
+import ClientProfileModal from '../ClientProfileModal';
 import AccountInfoModal from '../AccountInfoModal';
 import baseUrl from '../../config';
 const ClientList = () => {
@@ -156,7 +156,7 @@ const ClientList = () => {
       width: '20%',
       ...getColumnSearchProps('name'),
       render: (text,record) => (
-        <ClientRecordModal text = {text}  getClients={getClients} record={record}/>
+        <ClientProfileModal text = {text}  getClients={getClients} record={record}/>
       ),
     },
     {

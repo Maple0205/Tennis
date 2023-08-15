@@ -2,7 +2,8 @@ import { SearchOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table } from 'antd';
-
+import RecordUpdateModal from '../RecordUpdateModal';
+import ModifyRecordNoteModal from '../ModifyRecordNoteModal';
 const RecordsTable = (props) => {
   const data = props.records;
   const [searchText, setSearchText] = useState('');
@@ -119,6 +120,8 @@ const RecordsTable = (props) => {
       ...getColumnSearchProps('date'),
       sorter: (a, b) => new Date(a.date) - new Date(b.date), // Ensure the date values can be compared
       sortDirections: ['descend', 'ascend'],
+      render: (text,record) => {
+        return <RecordUpdateModal record={record} get_records={props.get_records} text={text}/>},
     },
     {
       title: 'Name',
@@ -206,6 +209,8 @@ const RecordsTable = (props) => {
       dataIndex: 'remark',
       key: 'remark',
       ...getColumnSearchProps('remark'),
+      render: (text,record) => {
+        return <ModifyRecordNoteModal record={record} get_records={props.get_records} text={text}/>},
     }
   ];
   return <Table columns={columns} dataSource={data}  rowKey="id"/>;

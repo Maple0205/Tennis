@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Tooltip } from 'antd';
 import UpdateClient from '../UpdateClient';
 import './style.css'
-const ClientRecordModal = (props) => {
+const ClientProfileModal = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -24,4 +24,4 @@ const ClientRecordModal = (props) => {
     </>
   );
 };
-export default ClientRecordModal;
+export default ClientProfileModal;

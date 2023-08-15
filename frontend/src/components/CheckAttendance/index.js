@@ -41,7 +41,7 @@ export default function CheckAttendance() {
   const render_records = (client,records)=>{
     if(client!==null){
       if(records!==null){
-        return <><CreateRecordModal client={client} clientName={clientName} get_records={get_records}/><RecordsTable records={records}/></>
+        return <><CreateRecordModal client={client} clientName={clientName} get_records={get_records}/><RecordsTable records={records} get_records={get_records}/></>
       }else{
         return <><CreateRecordModal client={client} clientName={clientName} get_records={get_records}/><Nodata/></>
       }
