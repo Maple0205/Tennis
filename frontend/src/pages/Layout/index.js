@@ -120,7 +120,7 @@ const TennisLayout = () => {
             {selectedMenuItemKey==="21" && <CheckAttendance/>}
             {selectedMenuItemKey==="5" && handleLogOut()}
             {selectedMenuItemKey==="22" && <ClassType/>}
-            {selectedMenuItemKey==="1" && <Mobile/>}
+            {/* {selectedMenuItemKey==="1" && <Mobile/>} */}
           </div>
         </Content>
         <Footer
