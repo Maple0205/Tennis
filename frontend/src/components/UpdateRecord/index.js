@@ -69,8 +69,8 @@ const onFinish = (values) => {
   update_record(values);
 };
 
+const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
-    // <div style={{ marginTop:'30px', display:'flex', margin:'auto'}}>
     <Form
     {...layout}
     name="nest-messages"
@@ -79,8 +79,8 @@ const onFinish = (values) => {
       maxWidth: 600,
       margin: 'auto',
       width:'100%',
-      marginTop: '30px',
-      marginLeft: '-20px',
+      marginTop: {MediaMatch} ? 0 : 20,
+      marginLeft: {MediaMatch} ? 0 : -20,
       display: 'flex',        // 使用flex布局
       flexDirection: 'column', // 垂直布局
     }}
@@ -98,7 +98,15 @@ const onFinish = (values) => {
       <DatePicker/>
     </Form.Item>
 
-    <Tooltip title="Click here to modify date" color="#108ee9">
+    {
+      MediaMatch.matches ? <Button
+      type="primary"
+      htmlType="submit"
+      style={{ alignSelf: 'flex-end'}}
+      loading={isLoading}
+    >
+      Submit
+    </Button> : <Tooltip title="Click here to modify date" color="#108ee9">
       <Button
         type="primary"
         htmlType="submit"
@@ -108,8 +116,9 @@ const onFinish = (values) => {
         Submit
       </Button>
     </Tooltip>
+    }
+
   </Form>
-  // </div>
   )
 }
 export default UpdateRecord;

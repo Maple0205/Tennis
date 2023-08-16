@@ -219,14 +219,14 @@ const RecordsTable = (props) => {
   const pageSize = 1; // 每页显示的记录数
   const totalPages = Math.ceil(data.length / pageSize);
   const [currentPage, setCurrentPage] = useState(1);
-
-
+  
   return (
     <div>
       {isVerticalLayout ? (
         data.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((record,index) => (
+          <div key={index}>
           <div style={{ overflowY: 'auto', maxHeight: '500px' }}>
-          <CellGroup key={index}>
+          <CellGroup>
           <Cell title={<div style={{ textAlign: 'left' }}>Date</div>} value={<RecordUpdateModal record={record} get_records={props.get_records} text={record.date}/>} />
           <Cell title={<div style={{ textAlign: 'left' }}>Name</div>} value={<div style={{ textAlign: 'left' }}>{record.name}</div>} />
           <Cell title={<div style={{ textAlign: 'left' }}>Class Type</div>} value={<div style={{ textAlign: 'left' }}>{record.class_type}</div>} />
@@ -240,12 +240,14 @@ const RecordsTable = (props) => {
           <Cell title={<div style={{ textAlign: 'left' }}>Balance</div>} value={<div style={{ textAlign: 'left' }}>{record.balance}</div>} />
           <Cell title={<div style={{ textAlign: 'left' }}>Account ID</div>} value={<div style={{ textAlign: 'left' }}>{record.account_id}</div>} />
           <Cell title={<div style={{ textAlign: 'left' }}>Note</div>} value={<ModifyRecordNoteModal record={record} get_records={props.get_records} text={record.remark}/>} />
+          </CellGroup>
+          </div>
           <div style={{textAlign:'center'}}>
           <Pagination value={currentPage} mode="simple" onChange={setCurrentPage} pageCount={totalPages}       prevText="Previous"
           nextText="Next"
           />
           </div>
-          </CellGroup></div>))
+          </div>))
       ) : (
         <Table columns={columns} dataSource={data} rowKey="id" pagination={false} />
       )}

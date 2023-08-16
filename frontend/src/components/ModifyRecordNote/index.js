@@ -69,6 +69,7 @@ const onFinish = (values) => {
   update_record(values);
 };
 
+const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     // <div style={{ marginTop:'30px', display:'flex', margin:'auto'}}>
     <Form
@@ -80,7 +81,7 @@ const onFinish = (values) => {
       margin: 'auto',
       width:'100%',
       marginTop: '30px',
-      marginLeft: '-60px',
+      marginLeft: MediaMatch.matches? '0px':'-20px',
       display: 'flex',        // 使用flex布局
       flexDirection: 'column', // 垂直布局
     }}
@@ -93,16 +94,24 @@ const onFinish = (values) => {
       <Input />
     </Form.Item>
 
-    <Tooltip title="Click here to modify note" color="#108ee9">
-      <Button
-        type="primary"
-        htmlType="submit"
-        style={{ alignSelf: 'flex-end', marginRight: '-60px' }}
-        loading={isLoading}
-      >
-        Submit
-      </Button>
-    </Tooltip>
+    {MediaMatch.matches? <Button
+          type="primary"
+          htmlType="submit"
+          style={{ alignSelf: 'flex-end'}}
+          loading={isLoading}
+        >
+          Submit
+        </Button>:
+        <Tooltip title="Click here to modify note" color="#108ee9">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ alignSelf: 'flex-end', marginRight: '-60px' }}
+            loading={isLoading}
+          >
+            Submit
+          </Button>
+        </Tooltip>}
   </Form>
   // </div>
   )
