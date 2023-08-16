@@ -74,7 +74,7 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
     // <div style={{ marginTop:'30px', display:'flex', margin:'auto'}}>
     <Form
     {...layout}
-    name="nest-messages"
+    name="modify-note"
     onFinish={onFinish}
     style={{
       maxWidth: 600,
