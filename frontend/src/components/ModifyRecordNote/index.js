@@ -78,10 +78,9 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
     onFinish={onFinish}
     style={{
       maxWidth: 600,
-      margin: 'auto',
       width:'100%',
-      marginTop: '30px',
-      marginLeft: MediaMatch.matches? '0px':'-20px',
+      marginTop: 30,
+      marginLeft: MediaMatch.matches? 0:-70,
       display: 'flex',        // 使用flex布局
       flexDirection: 'column', // 垂直布局
     }}
@@ -91,7 +90,7 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
       name={['remark']}
       label="Note"
     >
-      <Input />
+      <Input style={{width:"100%"}}/>
     </Form.Item>
 
     {MediaMatch.matches? <Button
@@ -106,7 +105,7 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
           <Button
             type="primary"
             htmlType="submit"
-            style={{ alignSelf: 'flex-end', marginRight: '-60px' }}
+            style={{ alignSelf: 'flex-end', marginRight: -70 }}
             loading={isLoading}
           >
             Submit

@@ -84,11 +84,10 @@ const CreateAccount = () => {
           form={form}
           name="create-account"
           onFinish={onFinish}
-          style={{
-            margin: 'auto',
-            width:'100%',
-            marginTop: '30px',
-            marginLeft: MediaMatch.matches? '0':'-20px',
+          style={{  
+            width:600,
+            marginTop: MediaMatch.matches? 0:20,
+            marginLeft: MediaMatch.matches? 0:-50,
             display: 'flex',        // 使用flex布局
             flexDirection: 'column', // 垂直布局
           }}
@@ -117,13 +116,20 @@ const CreateAccount = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber style={{width:"100%"}}/>
           </Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="primary" htmlType="submit" loading={isLoading}>
-            Submit
-          </Button>
-        </div>
+          {
+            MediaMatch.matches? <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
+              Submit
+            </Button>
+          </div>:
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight:-150 }}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
+              Submit
+            </Button>
+          </div>
+          }
         </Form>
       </Modal>
     </>

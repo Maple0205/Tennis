@@ -77,10 +77,9 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
     onFinish={onFinish}
     style={{
       maxWidth: 600,
-      margin: 'auto',
       width:'100%',
-      marginTop: {MediaMatch} ? 0 : 20,
-      marginLeft: {MediaMatch} ? 0 : -20,
+      marginTop: MediaMatch.matches ? 0 : 20,
+      marginLeft: MediaMatch.matches ? 0 : -20,
       display: 'flex',        // 使用flex布局
       flexDirection: 'column', // 垂直布局
     }}
@@ -110,7 +109,7 @@ const MediaMatch = window.matchMedia('(max-width: 500px)');
       <Button
         type="primary"
         htmlType="submit"
-        style={{ alignSelf: 'flex-end', marginRight: '-20px' }}
+        style={{ alignSelf: 'flex-end', marginRight: -20 }}
         loading={isLoading}
       >
         Submit

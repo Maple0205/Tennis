@@ -28,7 +28,7 @@ const ModifyRecordNoteModal = (props) => {
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
-        width={MediaMatch.matches ? "750" : "600"}
+        width={MediaMatch.matches ? 750 : 600}
         footer={null}
       >
           <ModifyRecordNote selected={props.record} setIsModalOpen1Fn={setOpen} get_records={props.get_records}/>

@@ -61,17 +61,19 @@ const ClassTypeModal  = (props) => {
           Add Type
         </Button>
       </div> :  
+      <div style={{ textAlign: 'left', marginBottom: '20px' }}>
         <Tooltip title="Add a new class type" color='#108ee9'>
           <Button type="primary" onClick={showModal}>
             Add Type
           </Button>
         </Tooltip>
+        </div>
     }
 
       <Modal
       title="Add New Type"
       open={isModalOpen}
-      width={MediaMatch.matches ? 500 : 230}
+      width={MediaMatch.matches ? 500 : 400}
       onCancel={handleCancel}
       footer={[
         <Button key="cancel" onClick={handleCancel}>
@@ -93,7 +95,7 @@ const ClassTypeModal  = (props) => {
           layout= "horizontal"
           style={{
             maxWidth: MediaMatch.matches ? 500 : "100%",
-            marginTop: MediaMatch.matches ? 20 : 0,
+            marginTop: MediaMatch.matches ? 0 : 20,
             marginLeft: MediaMatch.matches ? 0 : 20,
           }}
         >
@@ -101,7 +103,7 @@ const ClassTypeModal  = (props) => {
             <Input />
           </Form.Item>
           <Form.Item label="Rate" name="rate">
-            {MediaMatch.matches ? <InputNumber min={0}/> : <InputNumber min={0} style={{width: '100%'}}/>}
+            <InputNumber min={0} style={{width: '100%'}}/>
           </Form.Item>
         </Form>
       </Modal>

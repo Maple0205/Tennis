@@ -220,7 +220,7 @@ const CreateRecordModal  = (props) => {
           style={{
             width: '100%',
             marginTop: MediaMatch.matches ? 0 : 20 ,
-            marginLeft: MediaMatch.matches ? 0 : 60 ,
+            marginLeft: 0 ,
           }}
           onValuesChange={(changedValues, allValues) => {
             if ("record_type" in changedValues) {
@@ -260,7 +260,7 @@ const CreateRecordModal  = (props) => {
             }
           }}
         >
-          <Form.Item label="Record Type" name="record_type" dependencies={['record_type']}>
+          <Form.Item label="Record Type" name="record_type" dependencies={['record_type']} style={{width:"100%"}}>
             <Select placeholder="Please one">
               <Option value="1">Deposit</Option>
               <Option value="2">Check Attendance</Option>

@@ -89,11 +89,11 @@ const ModifyRate = (props) => {
           layout= {MediaMatch ? "vertical" : "horizontal"}
           style={{
             maxWidth: 600,
-            marginTop: {MediaMatch} ? 0 : 20,
+            marginTop: MediaMatch ? 0 : 20,
           }}
         >
           <Form.Item label="Rate" name="rate">
-            <InputNumber min={0}/>
+            <InputNumber min={0}  style={{width: '100%'}}/>
           </Form.Item>
         </Form>
       </Modal>
