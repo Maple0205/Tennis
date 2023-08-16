@@ -219,7 +219,6 @@ const RecordsTable = (props) => {
   const pageSize = 1; // 每页显示的记录数
   const totalPages = Math.ceil(data.length / pageSize);
   const [currentPage, setCurrentPage] = useState(1);
-  
   return (
     <div>
       {isVerticalLayout ? (

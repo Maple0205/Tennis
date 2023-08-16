@@ -185,10 +185,11 @@ const CreateRecordModal  = (props) => {
     }
     setIsLoading2(false);
   }
-  const matchMedia = window.matchMedia('(max-width: 500px)');
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
-    {!matchMedia.matches && <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
+    {MediaMatch.matches ?  <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}><Button type="primary" onClick={showModal}>Add</Button></div> : 
+      <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
         <Tooltip title="Add a new record" color='#108ee9'>
           <Button type="primary" onClick={showModal}>
             Add
@@ -212,20 +213,14 @@ const CreateRecordModal  = (props) => {
       ]}>
         {isLoading ? <Spin tip="Loading..." style={{ textAlign: 'center', width: '100%' }}/>:
         <Form
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
           form={form}
           onFinish={onFinish}
           layout="horizontal"
           disabled={componentDisabled}
           style={{
             width: '100%',
-            marginTop: 30,
-            marginLeft: 60,
+            marginTop: MediaMatch.matches ? 0 : 20 ,
+            marginLeft: MediaMatch.matches ? 0 : 60 ,
           }}
           onValuesChange={(changedValues, allValues) => {
             if ("record_type" in changedValues) {
@@ -286,7 +281,14 @@ const CreateRecordModal  = (props) => {
 
           {flag!==0 && 
           <>
-          <Form.Item label="Date" name="date">
+          <Form.Item label="Date" name="date" 
+          rules={[
+            {
+              required: true,
+              message: 'Please input the date!',
+            },
+          ]}
+          >
             <DatePicker />
           </Form.Item>
           <Form.Item label="Deposit" name="recharge">
@@ -298,7 +300,7 @@ const CreateRecordModal  = (props) => {
           <Form.Item label="Note" name="remark">
             <Input />
           </Form.Item>
-          {render_fee(flag)}
+          { MediaMatch.matches ? null : render_fee(flag)}
           </>}
         </Form>}
       </Modal>

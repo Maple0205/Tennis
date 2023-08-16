@@ -55,14 +55,18 @@ const ClassTypeModal  = (props) => {
   
   return (
     <>
-  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-  <Tooltip title="Add a new class type" color='#108ee9'>
-    <Button type="primary" onClick={showModal}>
-      Add Type
-    </Button>
-  </Tooltip>
-
-  </div>
+    {
+      MediaMatch.matches ?   <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+        <Button type="primary" onClick={showModal}>
+          Add Type
+        </Button>
+      </div> :  
+        <Tooltip title="Add a new class type" color='#108ee9'>
+          <Button type="primary" onClick={showModal}>
+            Add Type
+          </Button>
+        </Tooltip>
+    }
 
       <Modal
       title="Add New Type"
