@@ -73,15 +73,21 @@ const AccountInfoModal = (props) => {
     setIsLoading(false); 
   }
 
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
     {props.text!==0 &&
     <div>
-    <Tooltip title="View the information of this account" color='#108ee9'>
+      {MediaMatch.matches ?   <div style={{ textAlign: 'left' }}>
+    <button className="link-button" type="button" onClick={() => setOpen(true)}>
+      {props.text}
+    </button>
+  </div>:<Tooltip title="View the information of this account" color='#108ee9'>
       <button className="link-button" type="button" onClick={() => setOpen(true)}>
         {props.text}
       </button>
     </Tooltip>
+        }
       <Modal
         title="Account Information"
         open={open}

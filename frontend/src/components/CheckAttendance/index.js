@@ -49,14 +49,17 @@ export default function CheckAttendance() {
       return null;
     }
   }
- 
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
-    <div style={{margin: '20px'}}>
+    {
+      MediaMatch.matches ? <div style={{marginBottom: '20px'}}>
+      <SearchClientTool get_records={get_records} setClient={setClient} setClientName={setClientName}/>
+    </div> : <div style={{margin: '20px'}}>
       <SearchClientTool get_records={get_records} setClient={setClient} setClientName={setClientName}/>
     </div>
+    }
     <div>
-
       {isLoading ? <Spin size='large'/> : render_records(client,records)}
     </div>
     </>

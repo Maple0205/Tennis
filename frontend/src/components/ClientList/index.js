@@ -5,6 +5,8 @@ import { Button, Input, Space, Table, Spin } from 'antd';
 import ClientProfileModal from '../ClientProfileModal';
 import AccountInfoModal from '../AccountInfoModal';
 import baseUrl from '../../config';
+import { Cell, CellGroup,Pagination } from 'react-vant'
+
 const ClientList = () => {
   const [data, setData] = useState([]);
   const token = sessionStorage.getItem('token');
@@ -197,66 +199,27 @@ const ClientList = () => {
 
   const isVerticalLayout = window.innerWidth <= 500;
 
-  const tableStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-  };
-
-  const rowStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    border: '1px solid #ccc',
-    marginBottom: '10px',
-  };
-
-  const cellStyle = {
-    padding: '10px',
-    textAlign: 'left',
-  };
-
   const pageSize = 1; // 每页显示的记录数
   const totalPages = Math.ceil(data.length / pageSize);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <div>
       {isVerticalLayout ? (
-           <div>
-           <div style={tableStyle}>
-             {data.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((record) => (
-               <div style={rowStyle} key={record.id}>
-          <div style={cellStyle}>
-            <strong>Name:</strong> {record.name}
+        data.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((record,index) => (
+          <CellGroup key={index}>
+          <Cell title={<div style={{ textAlign: 'left' }}>Name</div>} value={<ClientProfileModal text = {record.name}  getClients={getClients} record={record}/>} />
+          <Cell title={<div style={{ textAlign: 'left' }}>Email</div>} value={<div style={{ textAlign: 'left' }}>{record.email}</div>} />
+          <Cell title={<div style={{ textAlign: 'left' }}>Level</div>} value={<div style={{ textAlign: 'left' }}>{renderLevel(record)}</div>} />
+          <Cell title={<div style={{ textAlign: 'left' }}>Phone</div>} value={<div style={{ textAlign: 'left' }}>{record.phone}</div>} />
+          <Cell title={<div style={{ textAlign: 'left' }}>Account ID</div>} value={<AccountInfoModal text = {record.aid} record={record} getClients={getClients}/>} />
+          <div style={{marginTop:'20px'}}>
+          <Pagination value={currentPage} mode="simple" onChange={setCurrentPage} pageCount={totalPages}       prevText="Previous"
+          nextText="Next"
+          />
           </div>
-          <div style={cellStyle}>
-            <strong>Email:</strong> {record.email}
-          </div>
-          <div style={cellStyle}>
-            <strong>Level:</strong> {renderLevel(record)}
-          </div>
-          <div style={cellStyle}>
-            <strong>Phone:</strong> {record.phone}
-          </div>
-          <div style={cellStyle}>
-            <strong>Account ID:</strong> {record.aid}
-          </div>  
-          </div>
-             ))}
-           </div>
-           <div>
-             <button disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)} style={{width:"40%"}}>
-               Previous
-             </button>
-             <button disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)} style={{width:"40%"}}>
-               Next
-             </button>
-           </div>
-         </div>
+          </CellGroup>
+        ))
       ) : (
         isLoading ? (
           <Spin size="large"/>

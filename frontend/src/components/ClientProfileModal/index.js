@@ -4,13 +4,19 @@ import UpdateClient from '../UpdateClient';
 import './style.css'
 const ClientProfileModal = (props) => {
   const [open, setOpen] = useState(false);
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
-      <Tooltip title="Click here to update this profile" color="#108ee9">
+    {MediaMatch.matches ? <div style={{ textAlign: 'left' }}>
+    <button className="link-button" type="button" onClick={() => setOpen(true)}>
+      {props.text}
+    </button>
+  </div> :  <Tooltip title="Click here to update this profile" color="#108ee9">
       <button className="link-button" type="button" onClick={() => setOpen(true)}>
         {props.text}
       </button>
-      </Tooltip>
+      </Tooltip>}
+
       <Modal
         title="Update Profile"
         open={open}

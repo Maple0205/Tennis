@@ -69,7 +69,7 @@ const CreateAccount = () => {
     }
   }
 
-  const MediaMatch = window.matchMedia('(min-width: 501px)');
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
       <Tooltip title="Create a new account" color='#108ee9'>
@@ -78,16 +78,19 @@ const CreateAccount = () => {
         </Button>
       </Tooltip>
 
-      <Modal title="Create a New Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} width={MediaMatch.matches ? 500 : 250}>
+      <Modal title="Create a New Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} width={750}>
         <Form
           {...layout}
           form={form}
           name="create-account"
           onFinish={onFinish}
           style={{
-            maxWidth: MediaMatch.matches ? '500' : '100%',
-            marginTop: MediaMatch.matches ? '20px' : '0',
-            marginLeft: MediaMatch.matches ? '-60px' : '20',
+            margin: 'auto',
+            width:'100%',
+            marginTop: '30px',
+            marginLeft: MediaMatch.matches? '0':'-20px',
+            display: 'flex',        // 使用flex布局
+            flexDirection: 'column', // 垂直布局
           }}
           validateMessages={validateMessages}
         >
@@ -101,7 +104,7 @@ const CreateAccount = () => {
               },
             ]}
           >
-            {MediaMatch.matches ? <Input style={{width:'300px'}}/> : <Input style={{width:'200px'}}/>}
+            <Input/>
           </Form.Item>
           <Form.Item
             name={['balance']}

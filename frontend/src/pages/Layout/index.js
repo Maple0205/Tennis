@@ -14,6 +14,7 @@ import ClientList from '../../components/ClientList';
 import CheckAttendance from '../../components/CheckAttendance';
 import ClassType from '../../components/ClassType';
 import Media from 'react-media';
+import Mobile from '../../components/Mobile';
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -87,8 +88,8 @@ const TennisLayout = () => {
           style={{
             width: '35px',
             height: '35px',
-            marginRight: '10px',
-            marginLeft: '30px',
+            marginRight: '5px',
+            marginLeft: '5px',
             animation: 'rotate 2s linear infinite', // 应用旋转动画
           }}
         />
@@ -119,6 +120,7 @@ const TennisLayout = () => {
             {selectedMenuItemKey==="21" && <CheckAttendance/>}
             {selectedMenuItemKey==="5" && handleLogOut()}
             {selectedMenuItemKey==="22" && <ClassType/>}
+            {selectedMenuItemKey==="1" && <Mobile/>}
           </div>
         </Content>
         <Footer

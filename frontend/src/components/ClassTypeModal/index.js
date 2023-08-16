@@ -51,7 +51,7 @@ const ClassTypeModal  = (props) => {
     setLoading(false);
   }
 
-  const MediaMatch = window.matchMedia('(min-width: 501px)');
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   
   return (
     <>

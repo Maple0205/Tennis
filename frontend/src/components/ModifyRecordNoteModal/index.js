@@ -11,14 +11,18 @@ const ModifyRecordNoteModal = (props) => {
     }
     return text;
   }
-
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
   return (
     <>
-      <Tooltip title="Click here to modify this note" color="#108ee9">
+    { 
+      MediaMatch.matches ? <div style={{textAlign:"left"}}><button className="link-button" type="button" onClick={() => setOpen(true)}>
+      {handleText(props.text)}
+    </button></div> : <Tooltip title="Click here to modify this note" color="#108ee9">
       <button className="link-button" type="button" onClick={() => setOpen(true)}>
         {handleText(props.text)}
       </button>
       </Tooltip>
+    }
       <Modal
         title="Modify Note"
         open={open}

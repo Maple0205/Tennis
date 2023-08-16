@@ -60,6 +60,8 @@
   const onFinish = (values) => {
     update_client(values);
   };
+
+  const MediaMatch = window.matchMedia('(max-width: 500px)');
     return (
       // <div style={{ marginTop:'30px', display:'flex', margin:'auto'}}>
       <Form
@@ -71,7 +73,7 @@
         margin: 'auto',
         width:'100%',
         marginTop: '30px',
-        marginLeft: '-20px',
+        marginLeft: MediaMatch.matches? '0px':'-20px',
         display: 'flex',        // 使用flex布局
         flexDirection: 'column', // 垂直布局
       }}
@@ -121,6 +123,14 @@
           <Option value={3}>Advanced</Option>
         </Select>
       </Form.Item>
+      {MediaMatch.matches? <Button
+          type="primary"
+          htmlType="submit"
+          style={{ alignSelf: 'flex-end'}}
+          loading={isLoading}
+        >
+          Submit
+        </Button>:
         <Button
           type="primary"
           htmlType="submit"
@@ -128,7 +138,7 @@
           loading={isLoading}
         >
           Submit
-        </Button>
+        </Button>}
     </Form>
     // </div>
     )

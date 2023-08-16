@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, InputNumber, message, Tooltip, Button } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import baseUrl from '../../config';
+import Media from 'react-media';
 const ModifyRate = (props) => {
   const [open, setOpen] = useState(false);
   const token = sessionStorage.getItem('token');
@@ -47,9 +48,15 @@ const ModifyRate = (props) => {
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const MediaMatch = window.matchMedia('(max-width: 500px)').matches;
+  
   return (
     <>
     {props.text!==0 &&
+    MediaMatch ? <button className="link-button" type="button" onClick={() => setOpen(true)}>
+    {props.record.rate}
+  </button> :
       <Tooltip title="Click here to modify rate" color='#108ee9'>
       <button className="link-button" type="button" onClick={() => setOpen(true)}>
         {props.record.rate}
@@ -79,10 +86,10 @@ const ModifyRate = (props) => {
         <Form
           form={form}
           onFinish={onFinish}
-          layout="horizontal"
+          layout= {MediaMatch ? "vertical" : "horizontal"}
           style={{
             maxWidth: 600,
-            marginTop: 30,
+            marginTop: {MediaMatch} ? 0 : 20,
           }}
         >
           <Form.Item label="Rate" name="rate">
