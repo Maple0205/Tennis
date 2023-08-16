@@ -85,7 +85,8 @@ const CreateAccount = () => {
           name="create-account"
           onFinish={onFinish}
           style={{  
-            width:600,
+            maxWidth: 600,
+            width:'100%',
             marginTop: MediaMatch.matches? 0:20,
             marginLeft: MediaMatch.matches? 0:-50,
             display: 'flex',        // 使用flex布局
