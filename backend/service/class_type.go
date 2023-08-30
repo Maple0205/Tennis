@@ -8,6 +8,7 @@ import (
 type CreateClassTypeService struct {
 	TypeName string `json:"type_name"`
 	Rate     int    `json:"rate"`
+	Capacity int    `json:"capacity"`
 }
 
 type ListClassTypeService struct {
@@ -17,6 +18,7 @@ type UpdateClassTypeService struct {
 	Id       uint   `json:"id"`
 	TypeName string `json:"type_name"`
 	Rate     int    `json:"rate"`
+	Capacity int    `json:"capacity"`
 }
 
 func (service *CreateClassTypeService) Create() serializer.Response {
@@ -24,6 +26,7 @@ func (service *CreateClassTypeService) Create() serializer.Response {
 	class_type := model.ClassType{
 		TypeName: service.TypeName,
 		Rate:     service.Rate,
+		Capacity: service.Capacity,
 	}
 	err := model.DB.Create(&class_type).Error
 	if err != nil {
@@ -59,6 +62,7 @@ func (service *UpdateClassTypeService) Update(cId uint) serializer.Response {
 	model.DB.Model(&class_type).Where("id = ?", cId).Updates(map[string]interface{}{
 		"type_name": service.TypeName,
 		"rate":      service.Rate,
+		"capacity":  service.Capacity,
 	})
 	return serializer.Response{
 		Status: 200,

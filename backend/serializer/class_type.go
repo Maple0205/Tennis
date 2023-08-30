@@ -6,6 +6,7 @@ type ClassType struct {
 	ID       uint   `json:"id"`
 	TypeName string `json:"type_name"`
 	Rate     int    `json:"rate"`
+	Capacity int    `json:"capacity"`
 }
 
 func BuildClassType(item model.ClassType) ClassType {
@@ -13,6 +14,7 @@ func BuildClassType(item model.ClassType) ClassType {
 		ID:       item.ID,
 		TypeName: item.TypeName,
 		Rate:     item.Rate,
+		Capacity: item.Capacity,
 	}
 }
 

@@ -6,4 +6,5 @@ type ClassType struct {
 	gorm.Model
 	TypeName string `gorm:"type:varchar(100);unique"`
 	Rate     int    `gorm:"type:int"`
+	Capacity int    `gorm:"type:int"`
 }

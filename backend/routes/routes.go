@@ -56,6 +56,23 @@ func NewRouter() *gin.Engine {
 			authed.GET("class_type", api.ListClassType)
 			authed.DELETE("class_type/:id", api.DeleteClassType)
 			authed.PUT("class_type/:id", api.UpdateClassType)
+
+			//teacher
+			authed.POST("teacher", api.CreateTeacher)
+			authed.GET("teachers", api.ListTeacher)
+			authed.DELETE("teacher/:id", api.DeleteTeacher)
+			authed.PUT("teacher/:id", api.UpdateTeacher)
+			authed.GET("teacher/:id", api.ShowTeacher)
+			authed.POST("search_teacher/:info", api.SearchTeacher)
+
+			//course
+			authed.POST("course", api.CreateCourse)
+			authed.GET("course/:id", api.ShowCourse)
+			authed.GET("courses", api.ListCourse)
+			authed.DELETE("course/:id", api.DeleteCourse)
+			authed.PUT("course/:id", api.UpdateCourse)
+			authed.POST("search_course/:info", api.SearchCourse)
+
 		}
 	}
 	return r
