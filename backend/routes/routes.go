@@ -72,6 +72,13 @@ func NewRouter() *gin.Engine {
 			authed.DELETE("course/:id", api.DeleteCourse)
 			authed.PUT("course/:id", api.UpdateCourse)
 			authed.POST("search_course/:info", api.SearchCourse)
+			//address
+			authed.POST("address", api.CreateAddress)
+			authed.GET("address/:id", api.ShowAddress)
+			authed.GET("addresses", api.ListAddress)
+			authed.DELETE("address/:id", api.DeleteAddress)
+			authed.PUT("address/:id", api.UpdateAddress)
+			authed.POST("search_address/:info", api.SearchAddress)
 
 		}
 	}
